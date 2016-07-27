@@ -1,4 +1,4 @@
-threads = 4
+threads = 16
 jdk = "java"
 encoding = "-Dfile.encoding=UTF-8"
 classpath = "-cp .:Rapid.jar"
@@ -18,3 +18,4 @@ solr_xml_location = "/home/openandroid/Documents/output/solr_xml_output.xml"
 permissions_list = "/home/openandroid/Documents/Code/permissions_list.txt"
 sys_cmd_list = "/home/openandroid/Documents/Code/Code/sys_cmd_list.txt"
 solr_dir = "/opt/solr/"
+decoded_apk_dir = "/home/openandroid/Documents/decodedapks/"

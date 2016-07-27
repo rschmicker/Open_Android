@@ -16,7 +16,7 @@ class json_builder:
 		self.com = com
 		self.output = variables.json_dir + self.appinfo.APK_name + '.json'
 		self.toJson()
-		self.toSolr()
+		#self.toSolr()
 
 	def toJson(self):
 		data = {}

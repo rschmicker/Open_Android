@@ -23,13 +23,15 @@ class appinfo:
 		out = info_subp.communicate()[0]
 		all_info = out.splitlines()
 		for info in all_info:
-			if info.find("versionName='") != -1:
-				info = info.split("versionName='",1)[1]
-				info = info.split("'")[0]
-				self.APK_version = info
-			if info.startswith("application-label:"):
-				info = info.replace(" ", "_")
+			if info.startswith("package: name="):
+				temp = info
+				if info.find("versionName='") != -1:
+					info = info.split("versionName='",1)[1]
+					info = info.split("'")[0]
+					self.APK_version = info
+				info = temp.replace(" ", "_")
 				info = info.split("'")[1]
+				info = info.split("'")[0]
 				info = info.replace("/","_")
 				info = info.replace("(","_")
 				info = info.replace(")","_")

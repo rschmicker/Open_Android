@@ -22,7 +22,6 @@ class mongo_db:
 	def dump_data(self):
 
 		app_id = ObjectId()
-
 		app_dump = self.db.apps.insert_one(
 			{
 				"_id": app_id,
@@ -37,7 +36,6 @@ class mongo_db:
 				"apis": self.apis.api_exist,
 			}
 		)
-
 		data = {}
 		data['app_name'] = self.appinfo.APK_name
 		data['version'] = self.appinfo.APK_version

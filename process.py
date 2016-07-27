@@ -12,6 +12,7 @@ from subprocess import *
 import os,re
 import shutil
 import subprocess
+import variables
 from time import clock
 
 class ClassNode(object):
@@ -137,7 +138,7 @@ class Sample():
 		apk_name = out_folder.split('/')[-1]
 		out_folder = out_folder.replace(apk_name, "")
 		out_folder = out_folder[:-5]
-		out_folder = out_folder + "decodedapks/" + apk_name
+		out_folder = variables.decoded_apk_dir + apk_name
 		decode_cmd = "./apktool.sh d --quiet -o '" + out_folder + "' '" + path + "'"
 		decode_subp = subprocess.Popen(['/bin/sh', '-c', decode_cmd], stdout=subprocess.PIPE)
 		out = decode_subp.communicate()[0]

@@ -41,22 +41,15 @@ class controller:
 		self.counter = 1
 		for APK in self.apk_list:
 			if len(threads_list) == variables.threads:
-				#print("Too many threads! wating to join...")
 				for t in threads_list:
 					t.join(360)
-					#if t.isAlive() == False:
-					#	print("Joined!")
-					#else:
-					#	print("Thread not joined!")
-					#	continue
 					self.completionRate()
-				#print("Done joining threads! continuing...")
 				del threads_list[:]
 
 			apk_thread = threads(APK, threadLock)
+			self.counter = self.counter + 1
 			apk_thread.start()
 			threads_list.append(apk_thread)
-			self.counter = self.counter + 1
 
 
 	def threadPool(self, apks, threads=2):

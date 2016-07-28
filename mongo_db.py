@@ -7,11 +7,10 @@ import sys
 
 class mongo_db:
 
-	def __init__(self, a, p, i, s, ap, com):
+	def __init__(self, a, i, s, ap, com):
 		client = MongoClient()
 		self.db = client.open_android
 		self.appinfo = a
-		self.perms = p
 		self.intents = i
 		self.strings = s
 		self.apis = ap
@@ -29,7 +28,7 @@ class mongo_db:
 				"version": self.appinfo.APK_version,
 				"SHA256": self.appinfo.SHA256,
 				"MD5": self.appinfo.MD5,
-				"permissions": self.perms.perm_exist,
+				"permissions": self.appinfo.perm_exist,
 				"intents": self.intents.intent_exist,
 				"smali": self.com.smali_exist,
 				"strings": self.strings.strings_exist,
@@ -41,7 +40,7 @@ class mongo_db:
 		data['version'] = self.appinfo.APK_version
 		data['SHA256'] = self.appinfo.SHA256
 		data['MD5'] = self.appinfo.MD5
-		data['permissions'] = self.perms.perm_exist
+		data['permissions'] = self.appinfo.perm_exist
 		data['intents'] = self.intents.intent_exist
 		data['smali'] = self.com.smali_exist
 		data['strings'] = self.strings.strings_exist

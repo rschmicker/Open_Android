@@ -16,13 +16,15 @@ class threads(threading.Thread):
 		self.threadLock = threadLock
 
 	def run(self):
-		a = appinfo(self.apk)
-		p = permparser(self.apk)
-		i = intentparser(self.apk)
-		com = Sample(self.apk)
-		self.threadLock.acquire()
-		s = stringparser(self.apk)
-		ap = apiparser(self.apk)
-		self.threadLock.release()
-		mongo_db(a, p, i, s, ap, com)
-		j = json_builder(a, p, i, s, ap, com)
+		try:
+			a = appinfo(self.apk)
+			i = intentparser(self.apk)
+			com = Sample(self.apk)
+			self.threadLock.acquire()
+			s = stringparser(self.apk)
+			ap = apiparser(self.apk)
+			self.threadLock.release()
+			mongo_db(a, i, s, ap, com)
+			j = json_builder(a, i, s, ap, com)
+		except ValueError:
+			pass

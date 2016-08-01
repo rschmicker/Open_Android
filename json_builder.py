@@ -13,7 +13,7 @@ class json_builder:
 		self.strings = s
 		self.apis = ap
 		self.com = com
-		self.output = variables.json_dir + self.appinfo.APK_name + '.json'
+		self.output = variables.json_dir + self.appinfo.APK_name + "_" + self.appinfo.MD5 + '.json'
 		self.toJson()
 		#self.toSolr()
 

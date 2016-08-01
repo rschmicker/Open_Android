@@ -17,6 +17,10 @@ class controller:
 	
 	def __init__(self):
 		self.apk_list = self.get_APK_list(variables.apk_dir)
+
+		# thread pool
+		#self.threadPoolDecode(self.apk_list, variables.threads)
+
 		# synchronos threading
 		self.sync_controller()
 		
@@ -24,8 +28,7 @@ class controller:
 		#for apk in self.apk_list:
 		#	self.extractor(apk)
 		
-		# thread pool
-		#self.threadPool(self.apk_list, variables.threads)
+		
 
 	def get_APK_list(self, APK_dir):
 		apks = []
@@ -34,6 +37,14 @@ class controller:
 				if name.endswith(".apk"):
 					apks.append(os.path.join(root, name))	  
 		return apks
+
+	def decode(self, apk):
+		out_apk = apk.strip(".apk")
+		out_apk = out_apk.split("/")[-1]
+		out_folder = variables.decoded_apk_dir + out_apk
+		decode_cmd = "./apktool.sh d --quiet -o '" + out_folder + "' '" + apk + "'"
+		decode_subp = subprocess.Popen(['/bin/sh', '-c', decode_cmd], stdout=subprocess.PIPE)
+		out = decode_subp.communicate()[0]
 
 	def sync_controller(self):
 		threadLock = threading.Lock()
@@ -45,16 +56,17 @@ class controller:
 					t.join(360)
 					self.completionRate()
 				del threads_list[:]
-
+				#break
+			self.completionRate()
 			apk_thread = threads(APK, threadLock)
 			self.counter = self.counter + 1
 			apk_thread.start()
 			threads_list.append(apk_thread)
 
 
-	def threadPool(self, apks, threads=2):
+	def threadPoolDecode(self, apks, threads=2):
 		pool = ThreadPool(threads)
-		results = pool.map(self.extractor, apks)
+		results = pool.map(self.decode, apks)
 		pool.close()
 		pool.join()
 		return results

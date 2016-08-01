@@ -28,7 +28,6 @@ class appinfo:
 
 	def extractor(self):
 		try:
-			print(self.apk_dir)
 			return APK(read(self.apk_dir), raw=True)
 		except:
 			print("Bad file: " + self.apk_dir)

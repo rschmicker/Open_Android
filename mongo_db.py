@@ -15,7 +15,7 @@ class mongo_db:
 		self.strings = s
 		self.apis = ap
 		self.com = com
-		self.output = variables.mongo_json + self.appinfo.APK_name + '.json'
+		self.output =variables.mongo_json + self.appinfo.APK_name + "_" + self.appinfo.MD5 + '.json'
 		self.dump_data()
 
 	def dump_data(self):

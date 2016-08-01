@@ -6,6 +6,7 @@ import sys
 
 class appinfo:
 
+	file_name = ""
 	apk_dir = ""
 	APK_name = ""
 	APK_version = ""
@@ -15,6 +16,8 @@ class appinfo:
 
 	def __init__(self, APK):
 		# Name, Version, MD5, SHA256
+		self.file_name = APK.split("/")[-1]
+		self.file_name = self.file_name.strip(".apk")
 		self.apk_dir = APK
 		self.apkf = self.extractor()
 		self.set_APK_info()

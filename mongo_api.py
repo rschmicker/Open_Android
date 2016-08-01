@@ -1,15 +1,24 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import sys
 
 class mongo_api:
 
-	def __init__(self, host, port, dbname, collection):
+	def __init__(self, host, port, user, passwd, dbname, collection):
 		self.host = host
 		self.port = port
+		self.user = user
+		self.password = passwd
 		self.dbname = dbname
-		client = MongoClient(self.host, self.port)
-		self.db = client[self.dbname]
-		self.collection = self.db[collection]
+
+		conn = MongoClient('mongodb://reader:reader@10.101.1.114:27017/')
+		db = conn[self.dbname]
+		coll = db[collection]
+
+		#client = MongoClient(self.host, self.port)
+		#self.db = client[self.dbname]
+		#self.collection = self.db[collection]
+
 
 	def list_feature(self, feature_list, by):
 		doc_list = []

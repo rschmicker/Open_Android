@@ -8,8 +8,9 @@ import sys
 class mongo_db:
 
 	def __init__(self, a, i, s, ap, com):
-		client = MongoClient()
+		client = MongoClient("10.101.1.114")
 		self.db = client.open_android
+		client.open_android.authenticate("admin", "buckman101", mechanism='MONGODB-CR')
 		self.appinfo = a
 		self.intents = i
 		self.strings = s

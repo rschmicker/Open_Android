@@ -20,7 +20,7 @@ class open_android_api:
 		self.solr_json_location = variables.solr_json_location
 		self.solr_xml_location = variables.solr_xml_location
 
-		self.m = mongo_api("localhost", 27017, "open_android", "apps")
+		self.m = mongo_api("localhost", 27017, "reader", "reader" "open_android", "apps")
 		self.s = solr_api("localhost", 8983)
 
 	def get_features_from_solr(self, search_for, features, return_type):
@@ -122,13 +122,13 @@ o = open_android_api()
 
 # Create file with mongo features ([list of features to check for existence], [features to write to file], return type)
 # For xml, the first feature to output will be the root, the rest will all be children
-#o.get_features_from_mongo(["permissions", "strings"], ["app_name", "version", "MD5"], "csv")
+o.get_features_from_mongo(["permissions", "strings"], ["app_name", "version", "MD5"], "csv")
 #o.get_features_from_mongo(["permissions", "strings"], ["app_name", "version", "MD5", "permissions", "apis", "strings"], "xml")
 #o.get_features_from_mongo(["permissions", "strings"], ["app_name", "version", "MD5", "permissions", "apis", "strings"], "json")
 #o.csv_builder(o.m.get_all_fields(),o.m.list_all_mongo(),"mongo")
 #o.json_builder(o.m.get_all_fields(),o.m.list_all_mongo(),"mongo")
 #o.xml_builder(o.m.get_all_fields(),o.m.list_all_mongo(),"mongo")
 # Create file with solr features ("regex string", [list of features to extract], return type)
-o.get_features_from_solr("*:*", ["app_version", "permissions", "permissions_vector"], "xml")
+#o.get_features_from_solr("*:*", ["app_version", "permissions", "permissions_vector"], "xml")
 #o.get_features_from_solr("*:*", ["app_version", "permissions", "permissions_vector", 
 #o.get_features_from_solr("*:*", ["app_version", "permissions", "permissions_vector", 

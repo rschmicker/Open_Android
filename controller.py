@@ -10,6 +10,7 @@ from mongo_db import *
 from json_builder import *
 from solr_api import *
 import sys
+import os
 import variables
 from multiprocessing.dummy import Pool as ThreadPool
 
@@ -35,7 +36,17 @@ class controller:
 		for root, dirs, files in os.walk(APK_dir, topdown=False):
 			for name in files:
 				if name.endswith(".apk"):
-					apks.append(os.path.join(root, name))	  
+					a = appinfo(os.path.join(root, name))
+					apk_name = a.APK_name
+					MD5 = a.MD5
+					mongo_fname = variables.mongo_json + apk_name + "_" + MD5 + '.json'
+					solr_fname = variables.json_dir + apk_name + "_" + MD5 + '.json'
+					if os.path.isfile(mongo_fname) and os.path.isfile(solr_fname):
+						print("Skipping:\t" + os.path.join(root, name))
+						continue
+					else:
+						print("Appending:\t" + os.path.join(root, name))
+						apks.append(os.path.join(root, name))	  
 		return apks
 
 	def decode(self, apk):
@@ -59,7 +70,10 @@ class controller:
 				#break
 			self.completionRate()
 			apk_thread = threads(APK, threadLock)
-			self.counter = self.counter + 1
+			if self.counter == 175:
+				os.execl(sys.executable, sys.executable, *sys.argv)
+			else:
+				self.counter = self.counter + 1
 			apk_thread.start()
 			threads_list.append(apk_thread)
 
@@ -82,6 +96,6 @@ class controller:
 		j = json_builder(a, p, i, s, ap, com)
 
 	def completionRate(self):
-		out = str(self.counter/len(self.apk_list)*100)+"%\t"+str(self.counter) + "/" + str(len(self.apk_list))
+		out = str(self.counter) + "/" + str(len(self.apk_list))
 		sys.stdout.write('\r' + str(out) + ' ' * 20)
 		sys.stdout.flush()

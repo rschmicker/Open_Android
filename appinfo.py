@@ -35,7 +35,8 @@ class appinfo:
 		except:
 			print("Bad file: " + self.apk_dir)
 			print("Deleting...")
-			os.remove(file)
+			#os.remove(file)
+			sys.exit(0)
 			raise ValueError('Bad Zip File')
 
 	def set_perm_list(self):
@@ -44,8 +45,12 @@ class appinfo:
 			self.perm_exist = True
 
 	def set_APK_info(self):
-		self.APK_name = self.apkf.package
-		self.APK_version = self.apkf.get_androidversion_name()
+		try:
+			self.APK_name = self.apkf.package
+			self.APK_version = self.apkf.get_androidversion_name()
+		except KeyError:
+			print("ERROR: parsing package name or version name")
+			pass
 
 	def set_MD5_hash(self):
 		self.MD5 = self.apkf.file_md5

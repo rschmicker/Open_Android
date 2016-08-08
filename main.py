@@ -1,8 +1,8 @@
 import subprocess
-from controller import *
+from parser.controller import *
 import threading
 import time
-import variables
+import parser.variables
 import os
 import sys
 from multiprocessing.dummy import Pool as ThreadPool

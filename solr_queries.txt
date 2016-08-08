@@ -1,0 +1,14 @@
+truncate:
+http://host:port/solr/core/update?stream.body=<delete><query>*:*</query></delete>&commit=true
+
+optimize:
+curl http://localhost:8983/solr/<core_name>/update -F stream.body=' <optimize />'
+
+create core:
+su - solr -c "/opt/solr/bin/solr create_core -c apps"
+
+delete:
+/opt/solr/bin/solr delete -c files
+
+post:
+bin/post -c gettingstarted example/exampledocs/books.json

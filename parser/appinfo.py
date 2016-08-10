@@ -34,9 +34,8 @@ class appinfo:
 			return APK(read(self.apk_dir), raw=True)
 		except:
 			print("Bad file: " + self.apk_dir)
-			print("Deleting...")
 			#os.remove(file)
-			sys.exit(0)
+			os.rename(self.apk_dir, variables.bad_apk_dir + self.file_name)
 			raise ValueError('Bad Zip File')
 
 	def set_perm_list(self):

@@ -7,7 +7,6 @@ from process import *
 import threading
 from mongo_db import *
 from json_builder import *
-#from solr_api import *
 
 class threads(threading.Thread):
 	def __init__(self, apk, threadLock):
@@ -24,7 +23,7 @@ class threads(threading.Thread):
 			s = stringparser(self.apk)
 			ap = apiparser(self.apk)
 			self.threadLock.release()
-			mongo_db(a, i, s, ap, com)
+			#mongo_db(a, i, s, ap, com)
 			j = json_builder(a, i, s, ap, com)
 		except ValueError:
 			pass

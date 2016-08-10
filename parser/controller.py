@@ -36,24 +36,32 @@ class controller:
 		for root, dirs, files in os.walk(APK_dir, topdown=False):
 			for name in files:
 				if name.endswith(".apk"):
-					a = appinfo(os.path.join(root, name))
-					apk_name = a.APK_name
-					MD5 = a.MD5
-					mongo_fname = variables.mongo_json + apk_name + "_" + MD5 + '.json'
-					solr_fname = variables.json_dir + apk_name + "_" + MD5 + '.json'
-					if os.path.isfile(mongo_fname) and os.path.isfile(solr_fname):
-						#print("Skipping:\t" + os.path.join(root, name))
+					try:
+						a = appinfo(os.path.join(root, name))
+						apk_name = a.APK_name
+						MD5 = a.MD5
+						apk_md5_file = root + apk_name + "_" + MD5 + ".apk"
+						os.rename(os.path.join(root, name), apk_md5_file)
+						#mongo_fname = variables.mongo_json + apk_name + "_" + MD5 + '.json'
+						solr_fname = variables.json_dir + apk_name + "_" + MD5 + '.json'
+						if os.path.isfile(solr_fname):#os.path.isfile(mongo_fname) and os.path.isfile(solr_fname):
+							print("Skipping:\t" + apk_md5_file)
+							continue
+						else:
+							print("Appending:\t" + apk_md5_file)
+							apks.append(apk_md5_file)
+					except ValueError:
+						print("Error getting name or MD5 from:\t" + apk_md5_file)
+						os.rename(apk_md5_file, variables.bad_apk_dir + apk_name + "_" + MD5 + ".apk")
 						continue
-					else:
-						print("Appending:\t" + os.path.join(root, name))
-						apks.append(os.path.join(root, name))	  
+						  
 		return apks
 
 	def decode(self, apk):
 		out_apk = apk.strip(".apk")
 		out_apk = out_apk.split("/")[-1]
 		out_folder = variables.decoded_apk_dir + out_apk
-		decode_cmd = "./apktool.sh d --quiet -o '" + out_folder + "' '" + apk + "'"
+		decode_cmd = "./parser/apktool.sh d --quiet -o '" + out_folder + "' '" + apk + "'"
 		decode_subp = subprocess.Popen(['/bin/sh', '-c', decode_cmd], stdout=subprocess.PIPE)
 		out = decode_subp.communicate()[0]
 

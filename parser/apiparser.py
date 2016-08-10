@@ -5,7 +5,7 @@ class apiparser:
 
 	__jdk = variables.jdk
 	__encoding = variables.encoding
-	__classpath = variables.classpath
+	__classpath =  "-cp " + variables.code_location + ":" + variables.classpath
 	__name_of_java_file = variables.api_java_file
 	address_list = []
 	api_list = []
@@ -18,11 +18,10 @@ class apiparser:
 		api_cmd = self.__jdk+" "+self.__encoding+" "+self.__classpath+" "+self.__name_of_java_file+" "+APK
 		api_cmd = api_cmd + " | awk '{if(NR>6)print}'"
 		self.set_address_and_api(api_cmd)
-		self.set_api_vectors()
-		self.has_dynamic_list = self.to_byte(self.has_dynamic_list)
-		self.has_network_list = self.to_byte(self.has_network_list)
-		self.has_encryption_list = self.to_byte(self.has_encryption_list)
-		#self.toString()
+		#self.set_api_vectors()
+		#self.has_dynamic_list = self.to_byte(self.has_dynamic_list)
+		#self.has_network_list = self.to_byte(self.has_network_list)
+		#self.has_encryption_list = self.to_byte(self.has_encryption_list)
 
 	def set_address_and_api(self, api_cmd):
 		api_subp = subprocess.Popen(['/bin/sh', '-c', api_cmd], stdout=subprocess.PIPE)
@@ -66,8 +65,3 @@ class apiparser:
 				temp_string = ""
 			temp_string = temp_string + bit
 		return temp_list
-
-	def toString(self):
-		for i in range(len(self.api_list)):
-			print("Address: " + self.address_list[i] + "\tAPI:\t" + self.api_list[i])
-			print("DYN: "+self.has_dynamic_list[i]+"\t\tENC: "+self.has_encryption_list[i]+"\t\tNET: "+self.has_network_list[i])

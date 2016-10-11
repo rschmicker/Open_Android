@@ -9,13 +9,13 @@ def call_and_print(url):
         print(line)
 
 #package_name and permissions with an output of a csv
-pn_p_c = "http://" + localhost + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=csv"
+pn_p_c = "http://" + host + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=csv"
 
 #package_name and permissions with an output of a json
-pn_p_j = "http://" + localhost + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=json"
+pn_p_j = "http://" + host + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=json"
 
 #package_name and permissions with an output of a xml
-pn_p_x = "http://" + localhost + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=xml"
+pn_p_x = "http://" + host + ":" + port + "/solr/apps/select?q=*:*&fl=package_name+permissions&wt=xml"
 
 print("====================================================")
 print("CSV:")

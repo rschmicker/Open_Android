@@ -46,7 +46,11 @@ class appinfo:
 	def set_APK_info(self):
 		try:
 			self.APK_name = self.apkf.package
-			self.APK_version = self.apkf.get_androidversion_name()
+			version = self.apkf.get_androidversion_name()
+			if(version.find(".") == -1):
+				self.APK_version = "NOTFOUND"
+			else:
+				self.APK_version = version
 		except KeyError:
 			print("ERROR: parsing package name or version name")
 			pass

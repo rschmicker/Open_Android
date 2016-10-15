@@ -7,7 +7,6 @@ class apiparser:
 	__encoding = variables.encoding
 	__classpath =  "-cp " + variables.code_location + ":" + variables.classpath
 	__name_of_java_file = variables.api_java_file
-	address_list = []
 	api_list = []
 	has_dynamic_list = []
 	has_encryption_list = []
@@ -17,29 +16,15 @@ class apiparser:
 		self.api_exist = False
 		api_cmd = self.__jdk+" "+self.__encoding+" "+self.__classpath+" "+self.__name_of_java_file+" "+APK
 		api_cmd = api_cmd + " | awk '{if(NR>6)print}'"
-		self.set_address_and_api(api_cmd)
-		#self.set_api_vectors()
-		#self.has_dynamic_list = self.to_byte(self.has_dynamic_list)
-		#self.has_network_list = self.to_byte(self.has_network_list)
-		#self.has_encryption_list = self.to_byte(self.has_encryption_list)
+		self.set_api(api_cmd)
 
-	def set_address_and_api(self, api_cmd):
+	def set_api(self, api_cmd):
 		api_subp = subprocess.Popen(['/bin/sh', '-c', api_cmd], stdout=subprocess.PIPE)
 		out = api_subp.communicate()[0]
-		apiaddr_list = out.splitlines()
-		for line in apiaddr_list:
-			line = line.strip("\t")
-			apiaddr = line.split("\t", 1)
-			if apiaddr[0] == '':
-				continue
-			else:
-				address = apiaddr[0]
-				api = apiaddr[1]
-				self.address_list.append(address)
-				self.api_list.append(api)
+		self.api_list = out.splitlines()
 		if len(self.api_list) != 0:
 			self.api_exist = True
-	
+
 	def set_api_vectors(self):
 		for api in self.api_list:
 			if api.find("reflect") != -1:

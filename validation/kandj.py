@@ -9,29 +9,41 @@ def get_permissions_vector():
 	for line in response:
 		response_list.append(line)
 	response_list = response_list[1:]
-	solr_permissions_list = []
-	permissions = response_list[0]
-	perm_list = permissions.split(',')	
-	android_permissions_list = []
-	f = open("permissions_list.txt","r")
-	for line in f:
-		line = line.strip("\n")
-		android_permissions_list.append(line)
-	f.close()
-	android_permissions_list.sort()
-	feature_vector = ""
-	for permission in android_permissions_list:
-		try:
-			perm_list.index(permission)
-			feature_vector = feature_vector + '1'
-		except ValueError:
-			feature_vector = feature_vector + '0'
-	print(feature_vector)
+	response_list = response_list[0].lstrip('"')
+	permissions = response_list
+	perm_list = permissions.split('"',1)[0]
+	perm_list = perm_list.split(',')
+	for perm in perm_list:
+		print(perm)
 	print(len(perm_list))
 get_permissions_vector()
 
 """
 Output:
-0011010100000000000000000000000000000000000000010000000010000000000000000000010000000100000000000000000000000000000100001000000000011
-27
+android.permission.ACCESS_COARSE_LOCATION
+android.permission.ACCESS_FINE_LOCATION
+android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+android.permission.ACCESS_NETWORK_STATE
+android.permission.WAKE_LOCK
+android.permission.RECEIVE_BOOT_COMPLETED
+android.permission.GET_ACCOUNTS
+android.permission.WRITE_EXTERNAL_STORAGE
+android.permission.INTERNET
+android.permission.ACCESS_WIFI_STATE
+android.permission.READ_PHONE_STATE
+com.android.browser.permission.WRITE_HISTORY_BOOKMARKS
+com.android.browser.permission.READ_HISTORY_BOOKMARKS
+com.android.launcher.permission.INSTALL_SHORTCUT
+com.android.launcher.permission.UNINSTALL_SHORTCUT
+com.android.launcher.permission.READ_SETTINGS
+com.htc.launcher.permission.READ_SETTINGS
+com.motorola.launcher.permission.READ_SETTINGS
+com.motorola.dlauncher.permission.READ_SETTINGS
+com.fede.launcher.permission.READ_SETTINGS
+com.lge.launcher.permission.READ_SETTINGS
+org.adw.launcher.permission.READ_SETTINGS
+com.motorola.launcher.permission.INSTALL_SHORTCUT
+com.motorola.dlauncher.permission.INSTALL_SHORTCUT
+com.lge.launcher.permission.INSTALL_SHORTCUT
+25
 """

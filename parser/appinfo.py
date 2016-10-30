@@ -34,7 +34,6 @@ class appinfo:
 			return APK(read(self.apk_dir), raw=True)
 		except:
 			print("Bad file: " + self.apk_dir)
-			#os.remove(file)
 			os.rename(self.apk_dir, variables.bad_apk_dir + self.file_name)
 			raise ValueError('Bad Zip File')
 

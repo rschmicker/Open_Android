@@ -5,7 +5,7 @@ class exampleparser:
 	apk_dir = ""
 	decoded_dir = ""
 	key = ""
-	value = ""	
+	value = []	
 
 	def __init__(self, APK):
 		self.apk_dir = APK

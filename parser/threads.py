@@ -1,11 +1,9 @@
-from permparser import *
 from appinfo import *
 from stringparser import *
 from apiparser import *
 from intentparser import *
 from process import *
 import threading
-from mongo_db import *
 from json_builder import *
 
 class threads(threading.Thread):

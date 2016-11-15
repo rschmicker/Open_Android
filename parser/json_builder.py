@@ -1,10 +1,5 @@
 import json
-import simplejson
 import variables
-import subprocess
-import os
-import pwd
-import getpass
 
 class json_builder:
 	def __init__(self, a, i, s, ap, com):
@@ -34,8 +29,11 @@ class json_builder:
 		data['apis'] = self.apis.api_list
 		with open(self.output, 'w') as outfile:
 			json.dump(data, outfile, indent=4, sort_keys=True, separators=(',', ':'))
+<<<<<<< HEAD
 
 	def toSolr(self):
 		solr_cmd = variables.solr_dir + 'bin/post -c ' + variables.solr_collection_name + ' ' + variables.json_dir + self.appinfo.APK_name + '.json'
 		solr_subp = subprocess.Popen(['/bin/sh', '-c', solr_cmd], stdout=subprocess.PIPE)
 		out = solr_subp.communicate()[0]
+=======
+>>>>>>> 6761dcc2bb1f6584c6648fc588d9fb3e9c0d4f4f

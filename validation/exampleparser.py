@@ -5,7 +5,7 @@ class exampleparser:
 	apk_dir = ""
 	decoded_dir = ""
 	key = ""
-	value = ""	
+	value = []	
 
 	def __init__(self, APK):
 		self.apk_dir = APK
@@ -16,6 +16,6 @@ class exampleparser:
 	
 	def parse_feature(self):
 		#parse feature here
-		self.key = 'Im a key!'
+		self.key = 'I am a key!'
 		self.value = ['hello', 'world']
 

@@ -6,7 +6,6 @@ class intentparser:
 
 	def __init__(self, apk):
 		self.intent_exist = False
-
 		out_apk = apk.strip(".apk")
 		out_apk = out_apk.split("/")[-1]
 		self.manifest = variables.decoded_apk_dir + out_apk + "/AndroidManifest.xml"

@@ -1,21 +1,14 @@
-from permparser import *
 from appinfo import *
-from stringparser import *
-from apiparser import *
-from intentparser import *
-from process import *
 from threads import *
 import threading
-from mongo_db import *
 from json_builder import *
-#from solr_api import *
 import sys
 import os
 import variables
 from multiprocessing.dummy import Pool as ThreadPool
 
 class controller:
-	
+
 	def __init__(self):
 		self.apk_list = self.get_APK_list(variables.apk_dir)
 
@@ -24,12 +17,6 @@ class controller:
 
 		# synchronos threading
 		self.sync_controller()
-		
-		# single threaded
-		#for apk in self.apk_list:
-		#	self.extractor(apk)
-		
-		
 
 	def get_APK_list(self, APK_dir):
 		apks = []
@@ -42,9 +29,8 @@ class controller:
 						MD5 = a.MD5
 						apk_md5_file = root + "/" + name + "_" + MD5 + ".apk"
 						os.rename(os.path.join(root, name), apk_md5_file)
-						#mongo_fname = variables.mongo_json + apk_name + "_" + MD5 + '.json'
 						solr_fname = variables.json_dir + apk_name + "_" + MD5 + '.json'
-						if os.path.isfile(solr_fname):#os.path.isfile(mongo_fname) and os.path.isfile(solr_fname):
+						if os.path.isfile(solr_fname):
 							print("Skipping:\t" + apk_md5_file)
 							continue
 						else:
@@ -54,7 +40,6 @@ class controller:
 						print("Error getting name or MD5 from:\t" + apk_md5_file)
 						os.rename(apk_md5_file, variables.bad_apk_dir + apk_name + "_" + MD5 + ".apk")
 						continue
-						  
 		return apks
 
 	def decode(self, apk):
@@ -73,10 +58,7 @@ class controller:
 			if len(threads_list) == variables.threads:
 				for t in threads_list:
 					t.join(360)
-					self.completionRate()
 				del threads_list[:]
-				#break
-			self.completionRate()
 			apk_thread = threads(APK, threadLock)
 			if self.counter == 175:
 				os.execl(sys.executable, sys.executable, *sys.argv)
@@ -88,9 +70,10 @@ class controller:
 
 	def threadPoolDecode(self, apks, threads=2):
 		pool = ThreadPool(threads)
-		results = pool.map(self.decode, apks)
+		pool.map(self.decode, apks)
 		pool.close()
 		pool.join()
+<<<<<<< HEAD
 		return results
 		
 	def async_extractor(self, apk):
@@ -107,3 +90,5 @@ class controller:
 		out = str(self.counter) + "/" + str(len(self.apk_list))
 		sys.stdout.write('\r' + str(out) + ' ' * 20)
 		sys.stdout.flush()
+=======
+>>>>>>> 6761dcc2bb1f6584c6648fc588d9fb3e9c0d4f4f

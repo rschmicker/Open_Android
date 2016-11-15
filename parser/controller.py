@@ -73,7 +73,6 @@ class controller:
 		pool.map(self.decode, apks)
 		pool.close()
 		pool.join()
-<<<<<<< HEAD
 		return results
 		
 	def async_extractor(self, apk):
@@ -90,5 +89,3 @@ class controller:
 		out = str(self.counter) + "/" + str(len(self.apk_list))
 		sys.stdout.write('\r' + str(out) + ' ' * 20)
 		sys.stdout.flush()
-=======
->>>>>>> 6761dcc2bb1f6584c6648fc588d9fb3e9c0d4f4f

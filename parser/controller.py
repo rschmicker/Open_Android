@@ -70,7 +70,7 @@ class controller:
 
 	def threadPoolDecode(self, apks, threads=2):
 		pool = ThreadPool(threads)
-		pool.map(self.decode, apks)
+		results = pool.map(self.decode, apks)
 		pool.close()
 		pool.join()
 		return results

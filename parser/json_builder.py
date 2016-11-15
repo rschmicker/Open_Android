@@ -15,15 +15,17 @@ class json_builder:
 		self.com = com
 		self.output = variables.json_dir + self.appinfo.APK_name + "_" + self.appinfo.MD5 + '.json'
 		self.toJson()
-		#self.toSolr()
 
 	def toJson(self):
 		data = {}
-		#data['app_version'] = self.appinfo.APK_name + "_" + str(self.appinfo.APK_version)
 		data['package_name'] = self.appinfo.APK_name
 		data['version'] = str(self.appinfo.APK_version)
 		data['SHA256'] = self.appinfo.SHA256
 		data['MD5'] = self.appinfo.MD5
+		if(self.appinfo.apk_dir.find("malware")==-1):
+			data['malicious'] = False
+		else:		
+			data['malicious'] = True
 		data['permissions'] = self.appinfo.perm_list
 		data['intents'] = self.intents.intent_list
 		data['smali'] = self.com.smali

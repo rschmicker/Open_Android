@@ -12,3 +12,8 @@ delete:
 
 post:
 bin/post -c gettingstarted example/exampledocs/books.json
+
+edit field type (adding a field type):
+ curl -X POST -H 'Content-type:application/json' --data-binary '{    
+"add-field" : {        "name":"MYFIELDNAMEHERE",        "type":"tlong",
+"stored":true}}' http://localhost:8983/solr/gettingstarted/schema

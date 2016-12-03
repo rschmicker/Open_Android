@@ -27,7 +27,7 @@ class controller:
 						a = appinfo(os.path.join(root, name))
 						apk_name = a.APK_name
 						MD5 = a.MD5
-						apk_md5_file = root + "/" + name + "_" + MD5 + ".apk"
+						apk_md5_file = root + "/" + apk_name + "_" + MD5 + ".apk"
 						os.rename(os.path.join(root, name), apk_md5_file)
 						solr_fname = variables.json_dir + apk_name + "_" + MD5 + '.json'
 						if os.path.isfile(solr_fname):
